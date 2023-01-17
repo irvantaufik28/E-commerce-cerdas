@@ -47,6 +47,15 @@ class UserRepository {
       },
     });
     return result;
+  } 
+  
+  async delete(id) {
+    const result = await this._UsersModel.destroy({
+      where: {
+        id,
+      },
+    });
+    return result;
   }
 }
 

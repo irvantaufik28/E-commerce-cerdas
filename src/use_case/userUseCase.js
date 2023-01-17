@@ -10,6 +10,7 @@ class UserUseCase {
     const user = await this._userRepository.getById(id, { include });
     return user;
   }
+
   async update(id, request) {
     await this._userRepository.update(id, request);
 
@@ -24,6 +25,13 @@ class UserUseCase {
     const include = ["user_Detail"];
     const user = await this._userRepository.getById(id, { include });
     return user;
+  }
+
+  async deleteAccount(id) {
+    await this._userRepository.delete(id);
+    await this._detailRepository.delete(id);
+
+    return;
   }
 }
 

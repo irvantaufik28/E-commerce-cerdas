@@ -19,6 +19,14 @@ class UserDetailRepository {
         })
         return result
     }
+    async delete(id) {
+        const result = await this._UserDetailModel.destroy({
+          where: {
+            id,
+          },
+        });
+        return result;
+      }
 }
 
 module.exports = UserDetailRepository;

@@ -7,5 +7,5 @@ const authorized = require("../middlerware/authorization")
 
 router.get("/profile",authorized, userController.profile);
 router.put("/profile", authorized, handleUpload.upload.single("image"), userController.update)
-
+router.delete("/profile", authorized, userController.deleteAccount)
 module.exports = router;

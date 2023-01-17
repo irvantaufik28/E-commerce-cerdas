@@ -10,7 +10,7 @@ module.exports = {
     }
   },
   update: async (req, res) => {
-    // try {
+    try {
       const { id } = req.user;
       const request = {
         phone_number: req.body.phone_number,
@@ -21,8 +21,19 @@ module.exports = {
       };
 
       const user = await req.userUC.update(id, request);
-      
+
       return res.status(200).json({ user });
+    } catch (error) {
+      return res.status(error.status).json({ message: error.message });
+    }
+  },
+  deleteAccount: async (req, res) => {
+    // try {
+      const { id } = req.user;
+
+      await req.userUC.deleteAccount(id);
+      
+      return res.status(200).json({ message: "succces delete" });
     // } catch (error) {
     //   return res.status(error.status).json({ message: error.message });
     // }
