@@ -6,13 +6,15 @@ class AuthUseCase {
     userDetailRepository,
     bcrypt,
     tokenManager,
-    cloudinary
+    cloudinary,
+    func
   ) {
     this._authRepository = authRepository;
     this._userDetailRepository = userDetailRepository;
     this._bcrypt = bcrypt;
     this._tokenManager = tokenManager;
     this._cloudinary = cloudinary;
+    this._func = func;
   }
 
   async login(request) {
@@ -58,15 +60,15 @@ class AuthUseCase {
     }
 
     request.password = this._bcrypt.hashSync(request.password, 10);
-
+    request.phone_number = this._func.verifyPhoneNumber(request.phone_number);
     const include = ["userDetail"];
     const user = await this._authRepository.create(request);
 
     request.user_id = user.id;
     request.gender = request.gender.toUpperCase();
-    
+
     if (request.gender !== "MALE" && request.gender !== "FEMALE") {
-      await user.destroy()
+      await user.destroy();
       throw {
         status: 400,
         message: "Gender must be filled with MALE or FEMALE ",

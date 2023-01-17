@@ -5,6 +5,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const tokenManager = require("./helpers/tokenManager");
 const cloudinary = require('./helpers/mediaHandler')
+const func = require('./helpers/functions')
 const app = express();
 
 
@@ -19,7 +20,8 @@ const authUC = new authUseCase(
   new userDetailRepository(),
   bcrypt,
   tokenManager,
-  cloudinary
+  cloudinary,
+  func
 );
 
 app.use((req, res, next) => {
