@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { users } = require("../models");
 
 class AuthRepository {
@@ -5,7 +6,7 @@ class AuthRepository {
     this._UsersModel = users;
   }
 
-  async loginUser(email) {
+  async getByEmail(email) {
     const result = await this._UsersModel.findOne({
       where: {
         email,
@@ -14,9 +15,29 @@ class AuthRepository {
     return result;
   }
 
-  async register(users) {
-    const result = await this._UsersModel.create(users)
-    return result
+  async getById(id, options = {}) {
+    const result = await this._UsersModel.findOne({
+      where: {
+        id,
+      },
+      attributes: { exclude: ["password"] },
+      ...options,
+    });
+    return result;
+  }
+
+  async getByPhone(phone_number) {
+    const result = await this._UsersModel.findOne({
+      where: {
+        phone_number,
+      },
+    });
+    return result;
+  }
+
+  async create(users) {
+    const result = await this._UsersModel.create(users);
+    return result;
   }
 }
 

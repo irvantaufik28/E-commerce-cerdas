@@ -4,11 +4,31 @@ module.exports = {
       const request = {
         email: req.body.email,
         password: req.body.password,
+        
       };
-      const users = await req.authUC.login(request);
-      
-      return res.status(200).json(users);
+      const user = await req.authUC.login(request);
 
+      return res.status(200).json({ user });
+    } catch (error) {
+      return res.status(error.status).json({ message: error.message });
+    }
+  },
+  register: async (req, res) => {
+    try {
+      const request = {
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword,
+        phone_number: req.body.phone_number,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        address: req.body.address,
+        gender: req.body.gender,
+        image: req.file.path,
+      };
+      const user = await req.authUC.register(request);
+
+      return res.status(201).json({ user });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }

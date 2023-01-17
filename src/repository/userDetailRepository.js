@@ -1,3 +1,4 @@
+
 const { user_detail } = require('../models')
 
 class UserDetailRepository {
@@ -5,8 +6,8 @@ class UserDetailRepository {
         this._UserDetailModel = user_detail;
     }
     
-    async createUser(user) {
-        result = await this._UserDetailModel.create(user)
+    async create(user) {
+       const result = await this._UserDetailModel.create(user)
         return result
     }
 }
