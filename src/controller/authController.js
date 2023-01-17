@@ -1,10 +1,10 @@
 const validation = require("../validation/index");
 module.exports = {
-  login: async (req, res, next) => {
+  login: async (req, res) => {
     try {
       const { error } = validation.login(req.body);
       if (error) {
-        return res.status(400).json({ message: error.message })
+        return res.status(400).json({ message: error.message });
       }
       const request = {
         email: req.body.email,
@@ -21,7 +21,7 @@ module.exports = {
     try {
       const { error } = validation.register(req.body);
       if (error) {
-        return res.status(400).json({ message: error.message })
+        return res.status(400).json({ message: error.message });
       }
       const request = {
         email: req.body.email,
@@ -32,7 +32,7 @@ module.exports = {
         last_name: req.body.last_name,
         address: req.body.address,
         gender: req.body.gender,
-        image: req.file.path,
+        image: req.file,
       };
       const user = await req.authUC.register(request);
 

@@ -6,8 +6,17 @@ class UserDetailRepository {
         this._UserDetailModel = user_detail;
     }
     
-    async create(user) {
-       const result = await this._UserDetailModel.create(user)
+    async create(user_detail) {
+       const result = await this._UserDetailModel.create(user_detail)
+        return result
+    }
+
+    async update(id, user_detail) {
+        const result = await this._UserDetailModel.update(user_detail, {
+            where: {
+                id
+            }
+        })
         return result
     }
 }

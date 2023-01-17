@@ -16,6 +16,7 @@ class AuthUseCase {
   }
 
   async login(request) {
+    
     const user = await this._userRepository.getByEmail(request.email);
     if (user === null) {
       throw { status: 404, message: "user not found" };

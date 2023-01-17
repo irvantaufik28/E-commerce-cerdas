@@ -35,8 +35,17 @@ class UserRepository {
     return result;
   }
 
-  async create(users) {
-    const result = await this._UsersModel.create(users);
+  async create(user) {
+    const result = await this._UsersModel.create(user);
+    return result;
+  }
+
+  async update(id, user) {
+    const result = await this._UsersModel.update(user, {
+      where: {
+        id,
+      },
+    });
     return result;
   }
 }
