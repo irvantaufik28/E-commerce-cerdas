@@ -10,13 +10,13 @@ const app = express();
 
 
 const authRouter = require("./routes/authRouter");
-const authRepository = require("./repository/authRepository");
+const userRepository = require("./repository/userRepository");
 const userDetailRepository = require("./repository/userDetailRepository");
 
 const authUseCase = require("./use_case/authUseCase");
 
 const authUC = new authUseCase(
-  new authRepository(),
+  new userRepository(),
   new userDetailRepository(),
   bcrypt,
   tokenManager,

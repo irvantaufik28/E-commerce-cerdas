@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 const { users } = require("../models");
 
-class AuthRepository {
+class UserRepository {
   constructor() {
     this._UsersModel = users;
   }
@@ -41,4 +41,4 @@ class AuthRepository {
   }
 }
 
-module.exports = AuthRepository;
+module.exports = UserRepository;

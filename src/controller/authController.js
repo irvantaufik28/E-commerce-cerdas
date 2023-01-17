@@ -1,10 +1,10 @@
+const validation = require("../validation/index");
 module.exports = {
   login: async (req, res, next) => {
     try {
       const request = {
         email: req.body.email,
         password: req.body.password,
-        
       };
       const user = await req.authUC.login(request);
 
@@ -15,6 +15,10 @@ module.exports = {
   },
   register: async (req, res) => {
     try {
+      const { error } = validation.register(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.message })
+      }
       const request = {
         email: req.body.email,
         password: req.body.password,
@@ -30,7 +34,7 @@ module.exports = {
 
       return res.status(201).json({ user });
     } catch (error) {
-      return res.status(400).json({ message: error.message });
+      return res.status(error.status).json({ message: error.message });
     }
   },
 };
