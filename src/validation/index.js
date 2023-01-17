@@ -60,4 +60,22 @@ module.exports = {
     })
     .validate(body)
   },
+  login : (body) => {
+    return Joi.object().keys({
+    email: Joi.string().email().min(6).max(50).required().messages({
+        "string.empty": "email cannot be an empty field",
+        "any.required": "email is required field",
+        "string.email": "Please insert a valid email address",
+        "string.min": `Password should have a minimum length of {#limit}`,
+        "string.max": `Password should have a maximum length of {#limit}`,
+      }),
+      password: Joi.string().min(6).required().messages({
+        "string.empty": "password cannot be an empty field",
+        "any.required": "password is required field",
+        "string.password": `Please insert a valid Password'`,
+        "string.min": `Password should have a minimum length of {#limit}`,
+      }),
+    })
+    .validate(body)
+  }
 };
