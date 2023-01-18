@@ -1,5 +1,4 @@
 const Joi = require("joi");
-const { forgetPassword } = require("../controller/userController");
 
 module.exports = {
   register: (body) => {
@@ -134,4 +133,34 @@ module.exports = {
     })
     .validate(body);
   },
+  forgetPassworValidation: (body) => {
+    return Joi.object()
+    .keys({
+      email: Joi.string().email().min(6).max(50).required().messages({
+        "string.empty": "email cannot be an empty field",
+        "any.required": "email is required field",
+        "string.email": "Please insert a valid email address",
+        "string.min": `Password should have a minimum length of {#limit}`,
+        "string.max": `Password should have a maximum length of {#limit}`,
+      }),
+      newPassword: Joi.string().min(6).required().messages({
+        "string.empty": "password cannot be an empty field",
+        "any.required": "password is required field",
+        "string.newPassword": `Please insert a valid Password'`,
+        "string.min": `Password should have a minimum length of {#limit}`,
+      }),
+      confirmNewPassword: Joi.string().min(6).required().messages({
+        "string.empty": "confrim Password cannot be an empty field",
+        "any.required": "confrim Password is required field",
+        "string.confirmNewPassword": `Please insert a valid confirm Password '`,
+        "string.min": `Confrim Password should have a minimum length of {#limit}`,
+      }),
+      otp_code: Joi.string().required().messages({
+        "string.empty": "otp_code cannot be an empty field",
+        "any.required": "otp_code is required field",
+        "string.otp_code": `Please insert a valid otp_code'`,
+      })
+    })
+    .validate(body)
+  }
 };

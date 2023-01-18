@@ -57,6 +57,10 @@ module.exports = {
      #swagger.tags = ['USERS']
    */
     try {
+      const { error } = validation.forgetPassworValidation(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.message });
+      }
       const request = {
         email: req.body.email,
         newPassword: req.body.newPassword,
