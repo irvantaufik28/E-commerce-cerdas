@@ -1,6 +1,7 @@
 const validation = require("../validation/index");
+
 module.exports = {
-  profile: async (req, res) => {
+  profile: async (req, res, next) => {
        /*
      #swagger.tags = ['USERS']
    */
@@ -10,10 +11,10 @@ module.exports = {
 
       return res.status(200).json({ user });
     } catch (error) {
-      return res.status(400).json({ message: error.message });
+      next(error)
     }
   },
-  update: async (req, res) => {
+  update: async (req, res, next) => {
       /*
      #swagger.tags = ['USERS']
    */
@@ -34,10 +35,10 @@ module.exports = {
 
       return res.status(200).json({ user });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      next(error)
     }
   },
-  deleteAccount: async (req, res) => {
+  deleteAccount: async (req, res, next) => {
       /*
      #swagger.tags = ['USERS']
    */
@@ -48,10 +49,10 @@ module.exports = {
 
       return res.status(200).json({ message: "succces delete" });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      next(error)
     }
   },
-  forgetPassword: async (req, res) => {
+  forgetPassword: async (req, res, next) => {
       /*
      #swagger.tags = ['USERS']
    */
@@ -65,7 +66,7 @@ module.exports = {
       const reset = await req.userUC.forgetPassword(request);
       return res.status(200).json(reset);
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      next(error)
     }
   },
 };

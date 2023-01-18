@@ -1,4 +1,4 @@
-const userController = require("../controller/userController");
+const errorHandler = require("../helpers/Error-Handler");
 
 class ProductsUseCase {
   constructor(productsRepository, cloudinary) {
@@ -55,9 +55,8 @@ class ProductsUseCase {
       { association: "user", attributes: { exclude: ["password"] } },
     ];
     const products = await this._productRepository.getByid(id, { include });
-    console.log(products)
     if (products === null) {
-      throw { status: 404, message: "Products not found" };
+      throw new errorHandler("product not found", 404)
     }
     return products;
   }
@@ -72,7 +71,7 @@ class ProductsUseCase {
   async update(id, request) {
     const product = await this._productRepository.getByid(id);
     if (!product) {
-      throw { status: 404, message: "Products not found" };
+      throw new errorHandler("product not found", 404)
     }
     await this._productRepository.update(id, request);
     const newProducts = await this._productRepository.getByid(id);
@@ -84,10 +83,10 @@ class ProductsUseCase {
     const products = await this._productRepository.getByid(id);
 
     if (!products) {
-      throw { status: 404, message: "Products not found" };
+      throw new errorHandler("product not found", 404)
     }
     if (products.user_id !== user_id) {
-      throw { status: 400, message: "cannot delete product" };
+      throw new errorHandler("canot delete product", 404)
     }
     await this._productRepository.delete(id);
 

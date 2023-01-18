@@ -1,3 +1,4 @@
+const errorHandler = require("../helpers/Error-Handler");
 class UserUseCase {
   constructor(
     userRepository,
@@ -45,11 +46,11 @@ class UserUseCase {
 
   async forgetPassword(request) {
     if (request.newPassword !== request.confirmNewPassword) {
-      throw { status: 404, message: "passwor not match" };
+      throw new errorHandler("password not match", 400)
     }
     const user = await this._userRepository.getByEmail(request.email);
     if (!user) {
-      throw { status: 404, message: "password not match" };
+      throw new errorHandler("email not available", 404)
     }
     const otp = await this._otpRepository.getOTP(
       request.email,
@@ -57,7 +58,7 @@ class UserUseCase {
       "FORGETPASSWORD"
     );
     if (!otp) {
-      throw { status: 404, message: "invalid otp code" };
+      throw new errorHandler("invalid OTP Code", 400)
     }
     request.password = request.newPassword;
     request.password = this._bcrypt.hashSync(request.password, 10);

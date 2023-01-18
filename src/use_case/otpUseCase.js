@@ -1,3 +1,4 @@
+const errorHandler = require("../helpers/Error-Handler");
 class Otp {
   constructor(otpRepository, email, email_message) {
     this._otpRepository = otpRepository;
@@ -8,7 +9,7 @@ class Otp {
 
     let otp = await this.getOTPByEmail(email);
     if (otp !== null) {
-      throw { status: 400, message: "wait until : " + otp.expired_at };
+      throw new errorHandler("wait until :" + otp.expired_at, 400 )
     }
 
     let content = this._email_message[otp_type.toUpperCase()];
@@ -25,7 +26,7 @@ class Otp {
   async verifyOTP(email, otp_code, otp_type) {
     let otp = await this._otpRepository.getOTP(email, otp_code, otp_type);
     if (otp === null) {
-      throw { status: 400, message: "invalid otp" };
+      throw new errorHandler("invalid OTP", 400);
     }
 
     return { message: "otp valid" };

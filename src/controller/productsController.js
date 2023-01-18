@@ -1,6 +1,7 @@
+
 const validation = require("../validation/index");
 module.exports = {
-  getAllProducts: async (req, res) => {
+  getAllProducts: async (req, res, next) => {
        /*
      #swagger.tags = ['PRODUCTS']
    */
@@ -16,10 +17,10 @@ module.exports = {
       const products = await req.productsUC.getAll(params);
       return res.status(200).json({ products });
     } catch (error) {
-      return res.status(400).json({ message: error.message });
+      next(error)
     }
   },
-  getByIdProducts: async (req, res) => {
+  getByIdProducts: async (req, res, next) => {
        /*
      #swagger.tags = ['PRODUCTS']
    */
@@ -28,10 +29,10 @@ module.exports = {
       const product = await req.productsUC.getByid(id);
       return res.status(200).json({ product });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      return next(error)
     }
   },
-  createProducts: async (req, res) => {
+  createProducts: async (req, res, next) => {
        /*
      #swagger.tags = ['PRODUCTS']
    */
@@ -50,11 +51,11 @@ module.exports = {
       const product = await req.productsUC.create(request);
       return res.status(200).json({ product });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      next(error)
     }
   },
 
-  updateProducts: async (req, res) => {
+  updateProducts: async (req, res, next) => {
        /*
      #swagger.tags = ['PRODUCTS']
    */
@@ -73,11 +74,11 @@ module.exports = {
       const product = await req.productsUC.update(id, request);
       return res.status(200).json({ product });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+     next(error)
     }
   },
 
-  deleteProducts: async (req, res) => {
+  deleteProducts: async (req, res, next) => {
        /*
      #swagger.tags = ['PRODUCTS']
    */
@@ -87,7 +88,7 @@ module.exports = {
     await req.productsUC.delete(id, user_id);
     return res.status(200).json({ message: "Succces delete product" });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      next(error)
     }
   },
 };
