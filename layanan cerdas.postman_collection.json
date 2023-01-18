@@ -15,23 +15,25 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/product?q=kopi&record=2&page=1&orderBy=name_product&orderDir=ASC",
+							"raw": "http://localhost:3000/api/v1/product?q=kuku&record=10&page=1&orderBy=name_product&orderDir=ASC",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
 								"product"
 							],
 							"query": [
 								{
 									"key": "q",
-									"value": "kopi"
+									"value": "kuku"
 								},
 								{
 									"key": "record",
-									"value": "2"
+									"value": "10"
 								},
 								{
 									"key": "page",
@@ -56,13 +58,114 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/product/:id",
+							"raw": "http://localhost:3000/api/v1/product/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123e4567-e89b-12d3-a456-426614174001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_product",
+									"value": "Kukus Kue",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "50000",
+									"type": "text"
+								},
+								{
+									"key": "descripition",
+									"value": "kue bolu enak sekalai",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Irvan/Desktop/aron/95290fe50a6dd0d86e20142873cbe4951673094040927.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name_product",
+									"value": "update product name",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "25000",
+									"type": "text"
+								},
+								{
+									"key": "descripition",
+									"value": "ini deskripsi",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Irvan/Desktop/aron/20230107121949801d9ebf7436a40f030eac67bc72bdfb1673094040870.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
 								"product",
 								":id"
 							],
@@ -77,81 +180,27 @@
 					"response": []
 				},
 				{
-					"name": "create product",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": []
-						},
-						"url": {
-							"raw": "http://localhost:3000/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"product"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update product",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/product/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"product",
-								":id"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "123e4567-e89b-12d3-a456-426614174000"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/product/:id",
+							"raw": "http://localhost:3000/api/v1/product/:id",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
 								"product",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "7ee0cff8-98f6-47fd-aee9-fecc2f6e3047"
 								}
 							]
 						}
@@ -178,13 +227,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/otp/request",
+							"raw": "http://localhost:3000/api/v1/otp/request",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
 								"otp",
 								"request"
 							]
@@ -204,7 +255,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"cindy@gmail.com\",\r\n    \"newPassword\" : \"newpassword\",\r\n    \"confirmNewPassword\": \"newpassword\",\r\n    \"otp_code\" : \"6656\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"joe@gmail.com\",\r\n    \"newPassword\" : \"123456\",\r\n    \"confirmNewPassword\": \"123456\",\r\n    \"otp_code\" : \"725594\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -212,13 +263,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/reset-password",
+							"raw": "http://localhost:3000/api/v1/user/reset-password",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
 								"user",
 								"reset-password"
 							]
@@ -233,7 +286,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"irvn@gmail.com\",\r\n    \"password\" : \"password\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"cindy@gmail.com\",\r\n    \"password\" : \"newpassword\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -241,13 +294,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/login",
+							"raw": "http://localhost:3000/api/v1/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
 								"login"
 							]
 						}
@@ -264,7 +319,7 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "a@gmail.comd",
+									"value": "1",
 									"type": "text"
 								},
 								{
@@ -274,7 +329,7 @@
 								},
 								{
 									"key": "phone_number",
-									"value": "08566442251",
+									"value": "082315156660",
 									"type": "text"
 								},
 								{
@@ -289,18 +344,18 @@
 								},
 								{
 									"key": "address",
-									"value": "Garut",
+									"value": "Perum Griya sahla 2",
 									"type": "text"
 								},
 								{
 									"key": "gender",
-									"value": "male",
+									"value": "MALE",
 									"type": "text"
 								},
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/Irvan/Desktop/aron/95290fe50a6dd0d86e20142873cbe4951673094040927.jpg"
+									"src": "/C:/Users/Irvan/Desktop/aron/20230107121949801d9ebf7436a40f030eac67bc72bdfb1673094040870.jpg"
 								},
 								{
 									"key": "confirmPassword",
@@ -310,13 +365,15 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/register",
+							"raw": "http://localhost:3000/api/v1/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"v1",
 								"register"
 							]
 						}
@@ -329,14 +386,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/profile",
+							"raw": "http://localhost:3000/api/v1/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"profile"
+								"api",
+								"v1",
+								"user"
 							]
 						}
 					},
@@ -362,25 +421,27 @@
 								},
 								{
 									"key": "last_name",
-									"value": "taufik",
+									"value": "update",
 									"type": "text"
 								},
 								{
 									"key": "image",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/Irvan/Desktop/aron/4db1132d5878e56d5ff6d45192302a921673094040839.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/profile",
+							"raw": "http://localhost:3000/api/v1/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"profile"
+								"api",
+								"v1",
+								"user"
 							]
 						}
 					},
@@ -392,14 +453,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/profile",
+							"raw": "http://localhost:3000/api/v1/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"profile"
+								"api",
+								"v1",
+								"user"
 							]
 						}
 					},
