@@ -6,20 +6,24 @@ const bcrypt = require("bcrypt");
 const tokenManager = require("./helpers/tokenManager");
 const cloudinary = require("./helpers/mediaHandler");
 const func = require("./helpers/functions");
+const email = require("./helpers/mailer");
+const email_message = require("./internal/constant/email_message");
 const serverError = require("./middlerware/server-error");
 const app = express();
 
 const authRouter = require("./routes/authRouter");
 const userRouter = require("./routes/userRouter");
-const productsRouter = require("./routes/productRouter")
+const productsRouter = require("./routes/productRouter");
 
 const userRepository = require("./repository/userRepository");
 const userDetailRepository = require("./repository/userDetailRepository");
-const productsRepository = require("./repository/productsRepository")
+const productsRepository = require("./repository/productsRepository");
+const otpRepository = require("./repository/otpRepository");
 
 const authUseCase = require("./use_case/authUseCase");
 const userUseCase = require("./use_case/userUseCase");
-const productsUseCase = require("./use_case/productsUseCase")
+const productsUseCase = require("./use_case/productsUseCase");
+const otpUseCase = require("./use_case/otpUseCase");
 
 const authUC = new authUseCase(
   new userRepository(),
@@ -36,12 +40,15 @@ const userUC = new userUseCase(
   cloudinary
 );
 
-const productsUC = new productsUseCase(new productsRepository(), cloudinary)
+const productsUC = new productsUseCase(new productsRepository(), cloudinary);
+
+const otpUC = new otpUseCase(new otpRepository(), new email(), email_message);
 
 app.use((req, res, next) => {
   req.authUC = authUC;
   req.userUC = userUC;
   req.productsUC = productsUC;
+  req.otpUC = otpUC;
   next();
 });
 
