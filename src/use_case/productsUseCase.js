@@ -4,9 +4,48 @@ class ProductsUseCase {
     this._cloudinary = cloudinary;
   }
 
-  async getAll() {
-    const products = await this._productRepository.getAll();
-    return products;
+  async getAll(params) {
+    const page = params.page ?? 1;
+    const limit = parseInt(params.limit ?? 10);
+
+    const offset = parseInt((page - 1) * limit);
+    const orderBy = params.orderBy ?? "created_at";
+    const orderDirection = params.orderDir ?? "DESC";
+
+    const order = [[orderBy, orderDirection]];
+
+    const product = await this._productRepository.getAll(params, {
+      offset,
+      limit,
+      order,
+    });
+
+    const start = 0 + (page - 1) * limit;
+    const end = page * limit;
+    const countFiltered = product.count;
+
+    const pagination = {
+      totalRow: product.count,
+      totalPage: Math.ceil(countFiltered / limit),
+      page,
+      limit,
+    };
+
+    if (end < countFiltered) {
+      pagination.next = {
+        page: page + 1,
+      };
+    }
+
+    if (start > 0) {
+      pagination.prev = {
+        page: page - 1,
+      };
+    }
+    return {
+      data : product.rows,
+      pagination
+    }
   }
 
   async getByid() {

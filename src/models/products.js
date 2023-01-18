@@ -1,8 +1,6 @@
-'use strict';
+"use strict";
 const { v4: uuidv4 } = require("uuid");
-const {
-  Model
-} = require('sequelize');
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class products extends Model {
     /**
@@ -12,25 +10,29 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.users, {
-        foreignKey: "user_id"
-      })
+        as: "user",
+        foreignKey: "user_id",
+      });
     }
   }
-  products.init({
-    user_id: DataTypes.INTEGER,
-    name_product: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    descripition: DataTypes.TEXT,
-    image: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'products',
-    tableName: "products",
-    createdAt: "created_at",
-    updatedAt: "updated_at",
+  products.init(
+    {
+      user_id: DataTypes.INTEGER,
+      name_product: DataTypes.STRING,
+      price: DataTypes.INTEGER,
+      descripition: DataTypes.TEXT,
+      image: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "products",
+      tableName: "products",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    }
+  );
+  products.beforeCreate(async (product) => {
+    product["id"] = uuidv4();
   });
-  products.beforeCreate(async(product)=> {
-    product["id"] = uuidv4()
-  })
   return products;
 };

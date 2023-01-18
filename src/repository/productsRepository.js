@@ -1,13 +1,35 @@
+const { Op } = require('sequelize')
 const { products } = require("../models");
+
 
 class ProductsRepository {
   constructor() {
     this._productsModel = products;
   }
-  async getAll() {
-    const result = await this._productsModel.findAll();
+  async getAll(params, options) {
+    const filters = {};
+
+    if (params) {
+      const search = params.q;
+      if (search) {
+        filters[Op.or] = [
+          {
+            name_product: {
+              [Op.iLike]: `%${search}%`,
+            },
+          },
+        ];
+      }
+    }
+
+    const result = await this._productsModel.findAndCountAll({
+      where: filters,
+      ...options,
+      distinct: true,
+    });
+
     return result;
-  }
+    }
 
   async getByid(id) {
     const result = await this._productsModel.findOne({
