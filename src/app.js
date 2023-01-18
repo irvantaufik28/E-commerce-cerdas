@@ -14,6 +14,7 @@ const app = express();
 const authRouter = require("./routes/authRouter");
 const userRouter = require("./routes/userRouter");
 const productsRouter = require("./routes/productRouter");
+const otpRouter = require("./routes/otpRouter");
 
 const userRepository = require("./repository/userRepository");
 const userDetailRepository = require("./repository/userDetailRepository");
@@ -37,7 +38,9 @@ const authUC = new authUseCase(
 const userUC = new userUseCase(
   new userRepository(),
   new userDetailRepository(),
-  cloudinary
+  new otpRepository(),
+  cloudinary,
+  bcrypt
 );
 
 const productsUC = new productsUseCase(new productsRepository(), cloudinary);
@@ -59,6 +62,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", authRouter);
 app.use("/", userRouter);
 app.use("/", productsRouter);
+app.use("/", otpRouter);
 
 app.use("/uploads", express.static("public/uploads"));
 // app.use(serverError)

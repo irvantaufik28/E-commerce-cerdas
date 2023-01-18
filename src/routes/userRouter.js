@@ -5,7 +5,8 @@ const handleUpload = require("../helpers/mediaHandler");
 
 const authorized = require("../middlerware/authorization")
 
-router.get("/profile",authorized, userController.profile);
-router.put("/profile", authorized, handleUpload.upload.single("image"), userController.update)
-router.delete("/profile", authorized, userController.deleteAccount)
+router.get("/user",authorized, userController.profile);
+router.put("/user", authorized, handleUpload.upload.single("image"), userController.update)
+router.delete("/user", authorized, userController.deleteAccount)
+router.post("/user/reset-password", userController.forgetPassword)
 module.exports = router;

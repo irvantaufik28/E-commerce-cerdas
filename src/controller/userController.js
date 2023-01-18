@@ -43,4 +43,19 @@ module.exports = {
       return res.status(error.status).json({ message: error.message });
     }
   },
+  forgetPassword: async (req, res) => {
+    try {
+      const request = {
+        email: req.body.email,
+        newPassword: req.body.newPassword,
+        confirmNewPassword: req.body.confirmNewPassword,
+        otp_code: req.body.otp_code
+      }
+      const reset = await req.userUC.forgetPassword(request)
+      return res.status(200).json(reset);
+
+    } catch (error) {
+      return res.status(error.status).json({ message: error.message });
+    }
+  }
 };
