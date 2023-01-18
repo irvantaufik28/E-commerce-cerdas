@@ -14,6 +14,11 @@ class ProductsRepository {
     return result;
   }
 
+  async create(products) {
+    const result = await this._productsModel.create(products);
+    return result;
+  }
+
   async update(id, products) {
     const result = await this._productsModel.update(id, products);
     return result;

@@ -16,6 +16,11 @@ class ProductsUseCase {
     return products;
   }
 
+  async create(products) {
+    const result = await this._productRepository.create(products);
+    return result;
+  }
+
   async update(id, products) {
     const products = await this._productsRepository.getByid(id);
     if (!products) {

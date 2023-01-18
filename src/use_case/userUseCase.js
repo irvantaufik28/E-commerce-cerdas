@@ -21,7 +21,7 @@ class UserUseCase {
       const image = await this._cloudinary.uploadCloudinary(request.image);
       request.image = image;
     }
-    console.log()
+ 
     await this._detailRepository.update(oldUser.id, request);
     const include = ["user_Detail"];
     const user = await this._userRepository.getById(id, { include });
