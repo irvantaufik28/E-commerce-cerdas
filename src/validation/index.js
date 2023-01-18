@@ -57,7 +57,7 @@ module.exports = {
           "string.valid": "Gender must be field MALE Or FEMALE",
           "any.required": "Gender is required field",
         }),
-        image: Joi.string().allow(null),
+        image: Joi.string().optional().allow(null).allow('').empty('').default('default value'),
       })
       .validate(body);
   },

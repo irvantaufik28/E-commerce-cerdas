@@ -15,7 +15,6 @@ class UserUseCase {
   }
 
   async create(request) {
-    console.log(request)
     const verifyEmail = await this._userRepository.getByEmail(request.email);
     if (verifyEmail) {
       throw new errorHandler("email not available", 400);
@@ -33,13 +32,15 @@ class UserUseCase {
 
     request.password = this._bcrypt.hashSync(request.password, 10);
     request.phone_number = this._func.verifyPhoneNumber(request.phone_number);
-    request.is_admin = false
+    request.is_admin = false;
     const include = ["user_detail"];
     const user = await this._userRepository.create(request);
 
     request.user_id = user.id;
-    const image = await this._cloudinary.uploadCloudinary(request.image);
-    request.image = image;
+    if (request.image) {
+      const image = await this._cloudinary.uploadCloudinary(request.image);
+      request.image = image;
+    }
     await this._userDetailRepository.create(request);
 
     const userData = await this._userRepository.getById(user.id, {
@@ -50,7 +51,6 @@ class UserUseCase {
   }
 
   async getAll(params) {
-
     const page = params.page ?? 1;
     const limit = parseInt(params.limit ?? 10);
 
@@ -100,22 +100,17 @@ class UserUseCase {
     return user;
   }
 
-
   async profile(id) {
     const include = ["user_detail"];
     const user = await this._userRepository.getById(id, { include });
     return user;
   }
 
-
-
   async update(id, request) {
     await this._userRepository.update(id, request);
 
     const oldUser = await this._userRepository.getById(id);
-    if (request.image === undefined) {
-      request.image === oldUser.image;
-    } else {
+    if (request.image) {
       const image = await this._cloudinary.uploadCloudinary(request.image);
       request.image = image;
     }

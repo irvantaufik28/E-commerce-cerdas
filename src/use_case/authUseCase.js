@@ -64,8 +64,10 @@ class AuthUseCase {
     const user = await this._userRepository.create(request);
 
     request.user_id = user.id;
-    const image = await this._cloudinary.uploadCloudinary(request.image);
-    request.image = image;
+    if (request.image) {
+      const image = await this._cloudinary.uploadCloudinary(request.image);
+      request.image = image;
+    }
     await this._userDetailRepository.create(request);
 
     const userData = await this._userRepository.getById(user.id, {

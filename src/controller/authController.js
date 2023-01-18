@@ -38,7 +38,7 @@ module.exports = {
         last_name: req.body.last_name,
         address: req.body.address,
         gender: req.body.gender,
-        image: req.file.path,
+        image: req.file?.path,
       };
       const user = await req.authUC.register(request);
 
