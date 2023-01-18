@@ -5,20 +5,20 @@ const handleUpload = require("../helpers/mediaHandler");
 
 const authorized = require("../middlerware/authorization");
 
-router.get("/product", authorized, productsController.getAllProducts);
-router.get("/product/:id", authorized, productsController.getByIdProducts);
+router.get("/api/v1/product", authorized, productsController.getAllProducts);
+router.get("/api/v1/product/:id", authorized, productsController.getByIdProducts);
 router.post(
-  "/product",
+  "/api/v1/product",
   authorized,
   handleUpload.upload.single("image"),
   productsController.createProducts
 );
 router.put(
-  "/product/:id",
+  "/api/v1/product/:id",
   authorized,
   handleUpload.upload.single("image"),
   productsController.updateProducts
 );
-router.delete("/product/:id", authorized, productsController.deleteProducts);
+router.delete("/api/v1/product/:id", authorized, productsController.deleteProducts);
 
 module.exports = router;

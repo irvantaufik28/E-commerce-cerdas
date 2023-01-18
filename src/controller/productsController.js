@@ -1,6 +1,9 @@
 const validation = require("../validation/index");
 module.exports = {
   getAllProducts: async (req, res) => {
+       /*
+     #swagger.tags = ['PRODUCTS']
+   */
     try {
       const limit = parseInt(req.query.record ?? 10);
       const page = parseInt(req.query.page ?? 1);
@@ -17,6 +20,9 @@ module.exports = {
     }
   },
   getByIdProducts: async (req, res) => {
+       /*
+     #swagger.tags = ['PRODUCTS']
+   */
     try {
       const { id } = req.params;
       const product = await req.productsUC.getByid(id);
@@ -26,6 +32,9 @@ module.exports = {
     }
   },
   createProducts: async (req, res) => {
+       /*
+     #swagger.tags = ['PRODUCTS']
+   */
     try {
         const { error } = validation.createProduct(req.body);
         if (error) {
@@ -46,6 +55,9 @@ module.exports = {
   },
 
   updateProducts: async (req, res) => {
+       /*
+     #swagger.tags = ['PRODUCTS']
+   */
     const { error } = validation.createProduct(req.body);
     if (error) {
       return res.status(400).json({ message: error.message });
@@ -66,6 +78,9 @@ module.exports = {
   },
 
   deleteProducts: async (req, res) => {
+       /*
+     #swagger.tags = ['PRODUCTS']
+   */
     try {
     const { id } = req.params;
     const user_id = req.user.id;

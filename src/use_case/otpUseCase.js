@@ -28,7 +28,7 @@ class Otp {
       throw { status: 400, message: "invalid otp" };
     }
 
-    return { message: "check your email" };
+    return { message: "otp valid" };
   }
   async getOTPByEmail(email) {
     return await this._otpRepository.getOTPByEmail(email);

@@ -18,6 +18,11 @@ function getToken(authHeader) {
 }
 
 const authorized = (req, res, next) => {
+   /*
+  #swagger.security = [{
+    "bearerAuth": []
+  }]
+  */
   const { authorization } = req.headers;
 
   if (authorization !== undefined && typeof authorization !== 'string') {

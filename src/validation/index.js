@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { forgetPassword } = require("../controller/userController");
 
 module.exports = {
   register: (body) => {
@@ -132,5 +133,5 @@ module.exports = {
       image: Joi.string().allow(null),
     })
     .validate(body);
-  }
+  },
 };

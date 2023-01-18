@@ -55,7 +55,8 @@ class ProductsUseCase {
       { association: "user", attributes: { exclude: ["password"] } },
     ];
     const products = await this._productRepository.getByid(id, { include });
-    if (!products) {
+    console.log(products)
+    if (products === null) {
       throw { status: 404, message: "Products not found" };
     }
     return products;

@@ -16,7 +16,6 @@ class UserUseCase {
   async profile(id) {
     const include = ["user_detail"];
     const user = await this._userRepository.getById(id, { include });
-    console.log(user);
     return user;
   }
 

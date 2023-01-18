@@ -1,6 +1,9 @@
 const validation = require("../validation/index");
 module.exports = {
   login: async (req, res) => {
+      /*
+     #swagger.tags = ['AUTH']
+   */
     try {
       const { error } = validation.login(req.body);
       if (error) {
@@ -18,6 +21,9 @@ module.exports = {
     }
   },
   register: async (req, res) => {
+      /*
+     #swagger.tags = ['AUTH']
+   */
     try {
       const { error } = validation.register(req.body);
       if (error) {

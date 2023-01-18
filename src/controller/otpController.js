@@ -1,5 +1,8 @@
 module.exports = {
   generateOTP: async (req, res) => {
+      /*
+     #swagger.tags = ['OTP']
+   */
     try {
       const otp_type = req.body.otp_type;
       const email = req.body.email;
@@ -11,6 +14,9 @@ module.exports = {
     }
   },
   verifyOTP: async (req, res) => {
+       /*
+     #swagger.tags = ['OTP']
+   */
     try {
       const otp_code = req.query.otp_code;
       const otp_type = req.query.otp_type;

@@ -8,6 +8,7 @@ const cloudinary = require("./helpers/mediaHandler");
 const func = require("./helpers/functions");
 const email = require("./helpers/mailer");
 const email_message = require("./internal/constant/email_message");
+const swaggerUi = require('swagger-ui-express');
 const serverError = require("./middlerware/server-error");
 const app = express();
 
@@ -65,6 +66,14 @@ app.use("/", productsRouter);
 app.use("/", otpRouter);
 
 app.use("/uploads", express.static("public/uploads"));
-// app.use(serverError)
+app.use(serverError)
+
+const swaggerDocument = require('./docs/docs.json');
+
+app.use(
+  '/docs',
+  swaggerUi.serveFiles(swaggerDocument),
+  swaggerUi.setup(swaggerDocument),
+);
 
 module.exports = app;
