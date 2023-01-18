@@ -61,26 +61,32 @@ class ProductsUseCase {
     return products;
   }
 
-  async create(products) {
-    const result = await this._productRepository.create(products);
+  async create(request) {
+    const image = await this._cloudinary.uploadCloudinary(request.image);
+    request.image = image;
+    const result = await this._productRepository.create(request);
     return result;
   }
 
-  async update(id, products) {
-    const product = await this._productsRepository.getByid(id);
+  async update(id, request) {
+    const product = await this._productRepository.getByid(id);
     if (!product) {
       throw { status: 404, message: "Products not found" };
     }
-    await this._productRepository._update(id, products);
+    await this._productRepository.update(id, request);
     const newProducts = await this._productRepository.getByid(id);
 
     return newProducts;
   }
 
-  async delete(id) {
-    const products = await this._productsRepository.getByid(id);
+  async delete(id, user_id) {
+    const products = await this._productRepository.getByid(id);
+
     if (!products) {
       throw { status: 404, message: "Products not found" };
+    }
+    if (products.user_id !== user_id) {
+      throw { status: 400, message: "cannot delete product" };
     }
     await this._productRepository.delete(id);
 

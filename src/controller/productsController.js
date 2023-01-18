@@ -1,34 +1,33 @@
 module.exports = {
   getAllProducts: async (req, res) => {
     try {
+      const limit = parseInt(req.query.record ?? 10);
+      const page = parseInt(req.query.page ?? 1);
 
-        const limit = parseInt(req.query.record ?? 10);
-        const page = parseInt(req.query.page ?? 1)
-
-        const params = {
-            ...req.query,
-            page,
-            limit
-        }
-    const products = await req.productsUC.getAll(params);
-    return res.status(200).json({ products });
+      const params = {
+        ...req.query,
+        page,
+        limit,
+      };
+      const products = await req.productsUC.getAll(params);
+      return res.status(200).json({ products });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
   },
   getByIdProducts: async (req, res) => {
-    // try {
+    try {
       const { id } = req.params;
       const product = await req.productsUC.getByid(id);
       return res.status(200).json({ product });
-    // } catch (error) {
-    //   return res.status(error.status).json({ message: error.message });
-    // }
+    } catch (error) {
+      return res.status(error.status).json({ message: error.message });
+    }
   },
   createProducts: async (req, res) => {
     try {
       const request = {
-        user_id: req.user,
+        user_id: req.user.id,
         name_product: req.body.name_product,
         price: req.body.price,
         descripition: req.body.descripition,
@@ -50,7 +49,7 @@ module.exports = {
         descripition: req.body.descripition,
         image: req.body.image,
       };
-      const product = await req.productsUC.update(request, id);
+      const product = await req.productsUC.update(id, request);
       return res.status(200).json({ product });
     } catch (error) {
       return res.status(error.status).json({ message: error.message });
@@ -59,9 +58,10 @@ module.exports = {
 
   deleteProducts: async (req, res) => {
     try {
-      const { id } = req.params;
-      const product = await req.productsUC.delete(id);
-      return res.status(200).json({ message: "Succces delete product" });
+    const { id } = req.params;
+    const user_id = req.user.id;
+    await req.productsUC.delete(id, user_id);
+    return res.status(200).json({ message: "Succces delete product" });
     } catch (error) {
       return res.status(error.status).json({ message: error.message });
     }

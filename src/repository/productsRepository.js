@@ -48,11 +48,19 @@ class ProductsRepository {
   }
 
   async update(id, products) {
-    const result = await this._productsModel.update(id, products);
+    const result = await this._productsModel.update(products, {
+      where: {
+        id
+      }
+    });
     return result;
   }
   async delete(id) {
-    const result = await this._productsModel.destroy(id);
+    const result = await this._productsModel.destroy({
+      where: {
+        id
+      }
+    });
     return result;
   }
 }
