@@ -11,11 +11,11 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api/v1/"
+      "url": "http://localhost:3000/"
     }
   ],
   "paths": {
-    "/login": {
+    "/api/v1/login": {
       "post": {
         "tags": [
           "AUTH"
@@ -37,10 +37,10 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "irvan@gmail.com"
+                    "example": "any"
                   },
                   "password": {
-                    "example": "password"
+                    "example": "any"
                   }
                 }
               }
@@ -49,7 +49,7 @@
         }
       }
     },
-    "/register": {
+    "/api/v1/register": {
       "post": {
         "tags": [
           "AUTH"
@@ -66,37 +66,33 @@
         },
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "joe@gmail.com"
+                    "example": "any"
                   },
                   "password": {
-                    "example": "password"
+                    "example": "any"
                   },
                   "confirmPassword": {
-                    "example": "password"
+                    "example": "any"
                   },
                   "phone_number": {
-                    "example": "082315156647"
+                    "example": "any"
                   },
                   "first_name": {
-                    "example": "Joe"
+                    "example": "any"
                   },
                   "last_name": {
-                    "example": "Steven"
+                    "example": "any"
                   },
                   "address": {
-                    "example": "west java"
+                    "example": "any"
                   },
                   "gender": {
-                    "example": "MALE"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
+                    "example": "any"
                   }
                 }
               }
@@ -105,7 +101,7 @@
         }
       }
     },
-    "/otp/verify": {
+    "/api/v1/otp/verify": {
       "get": {
         "tags": [
           "OTP"
@@ -116,24 +112,21 @@
             "name": "otp_code",
             "in": "query",
             "schema": {
-              "type": "string",
-              "example": "554411"
+              "type": "string"
             }
           },
           {
             "name": "otp_type",
             "in": "query",
             "schema": {
-              "type": "string",
-              "example": "FORGETPASSWORD"
+              "type": "string"
             }
           },
           {
             "name": "email",
             "in": "query",
             "schema": {
-              "type": "string",
-              "example":"joe@gmail.com"
+              "type": "string"
             }
           }
         ],
@@ -144,7 +137,7 @@
         }
       }
     },
-    "/otp/request": {
+    "/api/v1/otp/request": {
       "post": {
         "tags": [
           "OTP"
@@ -163,10 +156,10 @@
                 "type": "object",
                 "properties": {
                   "otp_type": {
-                    "example": "FORGETPASSWORD"
+                    "example": "any"
                   },
                   "email": {
-                    "example": "joe@gmail.com"
+                    "example": "any"
                   }
                 }
               }
@@ -175,61 +168,38 @@
         }
       }
     },
-    "/product": {
+    "/api/v1/product": {
       "get": {
         "tags": [
           "PRODUCTS"
         ],
         "description": "",
         "parameters": [
-            {
-                "name": "q",
-                "in": "query",
-                "schema": {
-                  "type": "string",
-                  "example" : "kopi"
-                }
-              },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "record",
             "in": "query",
             "schema": {
-              "type": "string",
-              "example" : 10
+              "type": "string"
             }
           },
           {
             "name": "page",
             "in": "query",
             "schema": {
-              "type": "string",
-              "example" : 1
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example" : "name_product"
-            }
-          },
-          {
-            "name": "orderDir",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example" : "ASC"
+              "type": "string"
             }
           }
-          
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -247,6 +217,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -266,22 +243,18 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "name_product": {
-                    "example": "Dodol Garut"
+                    "example": "any"
                   },
                   "price": {
-                    "example": "24500"
+                    "example": "any"
                   },
                   "descripition": {
-                    "example": "Dodol asli Garut."
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
+                    "example": "any"
                   }
                 }
               }
@@ -290,7 +263,7 @@
         }
       }
     },
-    "/product/{id}": {
+    "/api/v1/product/{id}": {
       "get": {
         "tags": [
           "PRODUCTS"
@@ -304,7 +277,14 @@
             "schema": {
               "type": "string"
             }
-          } 
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -333,6 +313,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -353,22 +340,21 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "name_product": {
-                    "example": "Dodol Picnic"
+                    "example": "any"
                   },
                   "price": {
-                    "example": "24500"
+                    "example": "any"
                   },
                   "descripition": {
-                    "example": "Dodol picnic rasa coklat"
+                    "example": "any"
                   },
                   "image": {
-                    "type": "string",
-                    "format": "binary"
+                    "example": "any"
                   }
                 }
               }
@@ -389,8 +375,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
           }
-         
         ],
         "responses": {
           "200": {
@@ -407,20 +399,24 @@
         ]
       }
     },
-    "/user": {
+    "/api/v1/user": {
       "get": {
         "tags": [
           "USERS"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -438,6 +434,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -457,25 +460,21 @@
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "phone_number": {
-                    "example": "08111111323"
+                    "example": "any"
                   },
                   "first_name": {
-                    "example": "irvan"
+                    "example": "any"
                   },
                   "last_name": {
-                    "example": "update"
+                    "example": "any"
                   },
                   "address": {
-                    "example": "Garut Tarogong kidul"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
+                    "example": "any"
                   }
                 }
               }
@@ -489,8 +488,117 @@
         ],
         "description": "",
         "parameters": [
-         
-            
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "USERS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "confirmPassword": {
+                    "example": "any"
+                  },
+                  "phone_number": {
+                    "example": "any"
+                  },
+                  "first_name": {
+                    "example": "any"
+                  },
+                  "last_name": {
+                    "example": "any"
+                  },
+                  "address": {
+                    "example": "any"
+                  },
+                  "gender": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/{id}": {
+      "get": {
+        "tags": [
+          "USERS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -507,7 +615,51 @@
         ]
       }
     },
-    "/user/reset-password": {
+    "/api/v1/all/user": {
+      "get": {
+        "tags": [
+          "USERS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "record",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/user/reset-password": {
       "post": {
         "tags": [
           "USERS"
@@ -517,6 +669,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         },
         "requestBody": {
@@ -526,16 +681,16 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "irvan@gmail.com"
+                    "example": "any"
                   },
                   "newPassword": {
-                    "example": "newPassword"
+                    "example": "any"
                   },
                   "confirmNewPassword": {
-                    "example": "newPassword"
+                    "example": "any"
                   },
                   "otp_code": {
-                    "example": "221546"
+                    "example": "any"
                   }
                 }
               }

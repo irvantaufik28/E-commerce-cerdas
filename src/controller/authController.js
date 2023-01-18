@@ -1,7 +1,7 @@
 const validation = require("../validation/index");
 module.exports = {
   login: async (req, res, next) => {
-      /*
+    /*
      #swagger.tags = ['AUTH']
    */
     try {
@@ -17,11 +17,11 @@ module.exports = {
 
       return res.status(200).json({ user });
     } catch (error) {
-     next(error)
+      next(error);
     }
   },
   register: async (req, res, next) => {
-      /*
+    /*
      #swagger.tags = ['AUTH']
    */
     try {
@@ -44,7 +44,7 @@ module.exports = {
 
       return res.status(201).json({ user });
     } catch (error) {
-     next(error)
+      next(error);
     }
   },
 };

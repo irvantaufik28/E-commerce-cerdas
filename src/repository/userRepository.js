@@ -1,8 +1,35 @@
 const { users } = require("../models");
+const { Op } = require('sequelize')
 
 class UserRepository {
   constructor() {
     this._UsersModel = users;
+  }
+
+  async getAll(params, options) {
+    const filters = {};
+
+    if (params) {
+      const search = params.q;
+      if (search) {
+        filters[Op.or] = [
+          {
+            email: {
+              [Op.iLike]: `%${search}%`,
+            },
+          },
+        ];
+      }
+    }
+    const result = await this._UsersModel.findAndCountAll({
+      where: filters,
+      attributes: { exclude: ["password"] },
+      ...options,
+      distinct: true,
+
+    });
+
+    return result;
   }
 
   async getByEmail(email) {

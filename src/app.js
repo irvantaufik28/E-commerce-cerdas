@@ -41,7 +41,8 @@ const userUC = new userUseCase(
   new userDetailRepository(),
   new otpRepository(),
   cloudinary,
-  bcrypt
+  bcrypt,
+  tokenManager
 );
 
 const productsUC = new productsUseCase(new productsRepository(), cloudinary);
