@@ -103,7 +103,7 @@ module.exports = {
           "string.min": `Address should have a minimum length of {#limit}`,
           "string.max": `Address should have a maximum length of {#limit}`,
         }),
-        image: Joi.string().allow(null),
+        image: Joi.string().optional().allow(null).allow('').empty('').default('default value'),
       })
       .validate(body);
   },

@@ -91,7 +91,7 @@ module.exports = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         address: req.body.address,
-        image: req.file.path,
+        image: req.file?.path,
       };
       const user = await req.userUC.update(id, request);
 
