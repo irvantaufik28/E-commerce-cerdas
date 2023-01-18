@@ -32,13 +32,13 @@ module.exports = {
         last_name: req.body.last_name,
         address: req.body.address,
         gender: req.body.gender,
-        image: req.file,
+        image: req.file.path,
       };
       const user = await req.authUC.register(request);
 
       return res.status(201).json({ user });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      return res.status(400).json({ message: error.message });
     }
   },
 };

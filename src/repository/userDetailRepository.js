@@ -11,10 +11,10 @@ class UserDetailRepository {
         return result
     }
 
-    async update(id, user_detail) {
+    async update(user_id, user_detail) {
         const result = await this._UserDetailModel.update(user_detail, {
             where: {
-                id
+                user_id
             }
         })
         return result

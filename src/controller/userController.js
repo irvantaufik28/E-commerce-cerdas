@@ -1,3 +1,4 @@
+const validation = require("../validation/index");
 module.exports = {
   profile: async (req, res) => {
     try {
@@ -11,6 +12,10 @@ module.exports = {
   },
   update: async (req, res) => {
     try {
+      const { error } = validation.updateProfile(req.body);
+      if (error) {
+        return res.status(400).json({ message: error.message });
+      }
       const { id } = req.user;
       const request = {
         phone_number: req.body.phone_number,
@@ -28,14 +33,14 @@ module.exports = {
     }
   },
   deleteAccount: async (req, res) => {
-    // try {
+    try {
       const { id } = req.user;
 
       await req.userUC.deleteAccount(id);
-      
+
       return res.status(200).json({ message: "succces delete" });
-    // } catch (error) {
-    //   return res.status(error.status).json({ message: error.message });
-    // }
+    } catch (error) {
+      return res.status(error.status).json({ message: error.message });
+    }
   },
 };
