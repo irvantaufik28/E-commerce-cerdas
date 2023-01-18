@@ -7,7 +7,7 @@ module.exports = {
 
       return res.status(200).json({ user });
     } catch (error) {
-      return res.status(error.status).json({ message: error.message });
+      return res.status(400).json({ message: error.message });
     }
   },
   update: async (req, res) => {

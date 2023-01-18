@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 const { users } = require("../models");
 
 class UserRepository {

@@ -1,11 +1,11 @@
 module.exports = {
   getAllProducts: async (req, res) => {
-    try {
-      const products = await req.productsUC.getAll();
-      return res.status(200).json({ products });
-    } catch (error) {
-      return res.status(error.status).json({ message: error.message });
-    }
+    // try {
+    const products = await req.productsUC.getAll();
+    return res.status(200).json({ products });
+    // } catch (error) {
+    //   return res.status(error.status).json({ message: error.message });
+    // }
   },
   getByIdProducts: async (req, res) => {
     try {

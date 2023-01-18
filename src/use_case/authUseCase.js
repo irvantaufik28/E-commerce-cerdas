@@ -60,7 +60,7 @@ class AuthUseCase {
 
     request.password = this._bcrypt.hashSync(request.password, 10);
     request.phone_number = this._func.verifyPhoneNumber(request.phone_number);
-    const include = ["user_Detail"];
+    const include = ["user_detail"];
     const user = await this._userRepository.create(request);
 
     request.user_id = user.id;

@@ -9,8 +9,12 @@ class ProductsRepository {
     return result;
   }
 
-  async getByid() {
-    const result = await this._productsModel.findOne();
+  async getByid(id) {
+    const result = await this._productsModel.findOne({
+      where : {
+        id
+      }
+    });
     return result;
   }
 

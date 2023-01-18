@@ -1,15 +1,16 @@
 class ProductsUseCase {
-  constructor(productsRepository) {
+  constructor(productsRepository, cloudinary) {
     this._productRepository = productsRepository;
+    this._cloudinary = cloudinary;
   }
 
   async getAll() {
-    const products = await this._productsRepository.getAll();
+    const products = await this._productRepository.getAll();
     return products;
   }
 
   async getByid() {
-    const products = await this._productsRepository.getByid();
+    const products = await this._productRepository.getByid();
     if (!products) {
       throw { status: 404, message: "Products not found" };
     }
@@ -22,8 +23,8 @@ class ProductsUseCase {
   }
 
   async update(id, products) {
-    const products = await this._productsRepository.getByid(id);
-    if (!products) {
+    const product = await this._productsRepository.getByid(id);
+    if (!product) {
       throw { status: 404, message: "Products not found" };
     }
     await this._productRepository._update(id, products);

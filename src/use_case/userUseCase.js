@@ -6,8 +6,9 @@ class UserUseCase {
   }
 
   async profile(id) {
-    const include = ["user_Detail"];
+    const include = ["user_detail"];
     const user = await this._userRepository.getById(id, { include });
+    console.log(user)
     return user;
   }
 
@@ -23,7 +24,7 @@ class UserUseCase {
     }
  
     await this._detailRepository.update(oldUser.id, request);
-    const include = ["user_Detail"];
+    const include = ["user_detail"];
     const user = await this._userRepository.getById(id, { include });
     return user;
   }
