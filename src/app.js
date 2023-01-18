@@ -11,12 +11,15 @@ const app = express();
 
 const authRouter = require("./routes/authRouter");
 const userRouter = require("./routes/userRouter");
+const productsRouter = require("./routes/productRouter")
 
 const userRepository = require("./repository/userRepository");
 const userDetailRepository = require("./repository/userDetailRepository");
+const productsRepository = require("./repository/productsRepository")
 
 const authUseCase = require("./use_case/authUseCase");
 const userUseCase = require("./use_case/userUseCase");
+const productsUseCase = require("./use_case/productsUseCase")
 
 const authUC = new authUseCase(
   new userRepository(),
@@ -33,9 +36,12 @@ const userUC = new userUseCase(
   cloudinary
 );
 
+const productsUC = new productsUseCase(new productsRepository(), cloudinary)
+
 app.use((req, res, next) => {
   req.authUC = authUC;
   req.userUC = userUC;
+  req.productsUC = productsUC;
   next();
 });
 
@@ -45,6 +51,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", authRouter);
 app.use("/", userRouter);
+app.use("/", productsRouter);
+
 app.use("/uploads", express.static("public/uploads"));
 // app.use(serverError)
 
