@@ -19,7 +19,7 @@ class UserRepository {
       where: {
         id,
       },
-      attributes: { exclude: ["password"] },
+
       ...options,
     });
     return result;

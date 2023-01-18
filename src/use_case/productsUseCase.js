@@ -1,3 +1,5 @@
+const userController = require("../controller/userController");
+
 class ProductsUseCase {
   constructor(productsRepository, cloudinary) {
     this._productRepository = productsRepository;
@@ -43,13 +45,16 @@ class ProductsUseCase {
       };
     }
     return {
-      data : product.rows,
-      pagination
-    }
+      data: product.rows,
+      pagination,
+    };
   }
 
-  async getByid() {
-    const products = await this._productRepository.getByid();
+  async getByid(id) {
+    const include = [
+      { association: "user", attributes: { exclude: ["password"] } },
+    ];
+    const products = await this._productRepository.getByid(id, { include });
     if (!products) {
       throw { status: 404, message: "Products not found" };
     }

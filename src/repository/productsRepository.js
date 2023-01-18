@@ -31,11 +31,13 @@ class ProductsRepository {
     return result;
     }
 
-  async getByid(id) {
+  async getByid(id, options = {}) {
     const result = await this._productsModel.findOne({
       where : {
         id
-      }
+      },
+      attributes: { exclude: ["password"] },
+      ...options,
     });
     return result;
   }
