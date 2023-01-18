@@ -31,9 +31,13 @@
     "nodemailer": "^6.9.0",
     "pg": "^8.8.0",
     "sequelize": "^6.28.0",
+    "swagger": "^0.7.5",
+    "swagger-autogen": "^2.22.0",
+    "swagger-ui-express": "^4.6.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "nodemon": "^2.0.20",
     "sequelize-cli": "^6.5.2"
   }
 }

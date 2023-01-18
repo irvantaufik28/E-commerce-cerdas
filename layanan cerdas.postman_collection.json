@@ -7,183 +7,405 @@
 	},
 	"item": [
 		{
-			"name": "login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\" : \"irvn@gmail.com\",\r\n    \"password\" : \"password\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "products",
+			"item": [
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product?q=kopi&record=2&page=1&orderBy=name_product&orderDir=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "kopi"
+								},
+								{
+									"key": "record",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "name_product"
+								},
+								{
+									"key": "orderDir",
+									"value": "ASC"
+								}
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "email",
-							"value": "a@gmail.comd",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "password",
-							"type": "text"
-						},
-						{
-							"key": "phone_number",
-							"value": "08566442251",
-							"type": "text"
-						},
-						{
-							"key": "first_name",
-							"value": "irvan",
-							"type": "text"
-						},
-						{
-							"key": "last_name",
-							"value": "taufik",
-							"type": "text"
-						},
-						{
-							"key": "address",
-							"value": "Garut",
-							"type": "text"
-						},
-						{
-							"key": "gender",
-							"value": "male",
-							"type": "text"
-						},
-						{
-							"key": "image",
-							"type": "file",
-							"src": "/C:/Users/Irvan/Desktop/aron/95290fe50a6dd0d86e20142873cbe4951673094040927.jpg"
-						},
-						{
-							"key": "confirmPassword",
-							"value": "password",
-							"type": "text"
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get profile",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/profile",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"profile"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "update profile",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "phone_number",
-							"value": "081234567000",
-							"type": "text"
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
 						},
-						{
-							"key": "first_name",
-							"value": "update",
-							"type": "text"
-						},
-						{
-							"key": "last_name",
-							"value": "taufik",
-							"type": "text"
-						},
-						{
-							"key": "image",
-							"type": "file",
-							"src": []
+						"url": {
+							"raw": "http://localhost:3000/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/profile",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"profile"
-					]
+				{
+					"name": "update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								":id"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "123e4567-e89b-12d3-a456-426614174000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/product/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"product",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "delete account",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/profile",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"profile"
-					]
+			"name": "otp",
+			"item": [
+				{
+					"name": "request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp_type\" : \"FORGETPASSWORD\",\r\n    \"email\" : \"cindy@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/otp/request",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"otp",
+								"request"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "forget password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"cindy@gmail.com\",\r\n    \"newPassword\" : \"newpassword\",\r\n    \"confirmNewPassword\": \"newpassword\",\r\n    \"otp_code\" : \"6656\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"irvn@gmail.com\",\r\n    \"password\" : \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "a@gmail.comd",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "08566442251",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "irvan",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "taufik",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Garut",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Irvan/Desktop/aron/95290fe50a6dd0d86e20142873cbe4951673094040927.jpg"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone_number",
+									"value": "081234567000",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "update",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "taufik",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -191,7 +413,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJpcnZhbkBnbWFpbC5jb20iLCJwaG9uZV9udW1iZXIiOiI2MjgyMzE1MTU2NjY4IiwiY3JlYXRlZF9hdCI6IjIwMjMtMDEtMTdUMTk6MjU6NDEuMTYxWiIsInVwZGF0ZWRfYXQiOiIyMDIzLTAxLTE3VDE5OjI1OjQxLjE2MVoiLCJpYXQiOjE2NzM5ODUzNjIsImV4cCI6MTY3NDAwNjk2Mn0.g_zXNlp8VCDBs5B5yXoCRHGwehgZneolQzUjacxIIco",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJjaW5keUBnbWFpbC5jb20iLCJwaG9uZV9udW1iZXIiOiI2MjgyMzE1MTU2NjYwIiwiY3JlYXRlZF9hdCI6IjIwMjMtMDEtMThUMDg6MjY6MDguMDE5WiIsInVwZGF0ZWRfYXQiOiIyMDIzLTAxLTE4VDA4OjI2OjA4LjAxOVoiLCJpYXQiOjE2NzQwMzA0MDUsImV4cCI6MTY3NDA1MjAwNX0.rBPajnuiYK9W-qiFlJrKhK8bYyTp_pe8pv1rd3XqRqk",
 				"type": "string"
 			}
 		]

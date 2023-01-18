@@ -1,3 +1,4 @@
+const errorHandler = require("../helpers/Error-Handler");
 class AuthUseCase {
   constructor(
     userRepository,
@@ -16,17 +17,16 @@ class AuthUseCase {
   }
 
   async login(request) {
-    
     const user = await this._userRepository.getByEmail(request.email);
     if (user === null) {
-      throw { status: 404, message: "user not found" };
+      throw new errorHandler("user not found", 404);
     }
     const comparePassword = await this._bcrypt.compareSync(
       request.password,
       user.password
     );
     if (!comparePassword) {
-      throw { status: 400, message: "password or email incorect" };
+      throw new errorHandler("password or email incorect", 400);
     }
     let payload = {
       id: user.id,
@@ -45,17 +45,17 @@ class AuthUseCase {
   async register(request) {
     const verifyEmail = await this._userRepository.getByEmail(request.email);
     if (verifyEmail) {
-      throw { status: 400, message: "email not available" };
+      throw new errorHandler("email not available", 400);
     }
     const verifyPhone = await this._userRepository.getByPhone(
       request.phone_number
     );
     if (verifyPhone) {
-      throw { status: 400, message: "phone not available" };
+      throw new errorHandler("phone not available", 400);
     }
 
     if (request.password !== request.confirmPassword) {
-      throw { status: 400, message: "password and confirm Password not match" };
+      throw new errorHandler("password and confirm Password not match", 400);
     }
 
     request.password = this._bcrypt.hashSync(request.password, 10);
