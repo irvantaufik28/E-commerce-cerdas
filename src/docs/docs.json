@@ -37,10 +37,10 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "any"
+                    "example": "irvan@gmail.com"
                   },
                   "password": {
-                    "example": "any"
+                    "example": "password"
                   }
                 }
               }
@@ -66,33 +66,37 @@
         },
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "any"
+                    "example": "joe@gmail.com"
                   },
                   "password": {
-                    "example": "any"
+                    "example": "password"
                   },
                   "confirmPassword": {
-                    "example": "any"
+                    "example": "password"
                   },
                   "phone_number": {
-                    "example": "any"
+                    "example": "082315156647"
                   },
                   "first_name": {
-                    "example": "any"
+                    "example": "Joe"
                   },
                   "last_name": {
-                    "example": "any"
+                    "example": "Steven"
                   },
                   "address": {
-                    "example": "any"
+                    "example": "west java"
                   },
                   "gender": {
-                    "example": "any"
+                    "example": "MALE"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -112,21 +116,24 @@
             "name": "otp_code",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "554411"
             }
           },
           {
             "name": "otp_type",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "FORGETPASSWORD"
             }
           },
           {
             "name": "email",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example":"joe@gmail.com"
             }
           }
         ],
@@ -156,10 +163,10 @@
                 "type": "object",
                 "properties": {
                   "otp_type": {
-                    "example": "any"
+                    "example": "FORGETPASSWORD"
                   },
                   "email": {
-                    "example": "any"
+                    "example": "joe@gmail.com"
                   }
                 }
               }
@@ -176,27 +183,47 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "record",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+              "name": "q",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "example" : "kopi"
+              }
+            },
+        {
+          "name": "record",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : 10
           }
-        ],
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : 1
+          }
+        },
+        {
+          "name": "orderBy",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : "name_product"
+          }
+        },
+        {
+          "name": "orderDir",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : "ASC"
+          }
+        }
+        
+      ],
         "responses": {
           "200": {
             "description": "OK"
@@ -217,13 +244,7 @@
         ],
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+
         ],
         "responses": {
           "200": {
@@ -243,18 +264,22 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "name_product": {
-                    "example": "any"
+                    "example": "Dodol Garut"
                   },
                   "price": {
-                    "example": "any"
+                    "example": "24500"
                   },
                   "descripition": {
-                    "example": "any"
+                    "example": "Dodol asli Garut."
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -277,14 +302,8 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
           }
+        
         ],
         "responses": {
           "200": {
@@ -313,13 +332,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
@@ -340,21 +352,22 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "name_product": {
-                    "example": "any"
+                    "example": "Dodol Picnic"
                   },
                   "price": {
-                    "example": "any"
+                    "example": "24500"
                   },
                   "descripition": {
-                    "example": "any"
+                    "example": "Dodol picnic rasa coklat"
                   },
                   "image": {
-                    "example": "any"
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -375,14 +388,7 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+          } 
         ],
         "responses": {
           "200": {
@@ -406,13 +412,7 @@
         ],
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+
         ],
         "responses": {
           "200": {
@@ -434,13 +434,6 @@
         ],
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -460,21 +453,25 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "phone_number": {
-                    "example": "any"
+                    "example": "08111111323"
                   },
                   "first_name": {
-                    "example": "any"
+                    "example": "irvan"
                   },
                   "last_name": {
-                    "example": "any"
+                    "example": "update"
                   },
                   "address": {
-                    "example": "any"
+                    "example": "Garut Tarogong kidul"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -488,13 +485,7 @@
         ],
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+          
         ],
         "responses": {
           "200": {
@@ -516,13 +507,7 @@
         ],
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+          
         ],
         "responses": {
           "201": {
@@ -542,33 +527,37 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "any"
+                    "example": "joe@gmail.com"
                   },
                   "password": {
-                    "example": "any"
+                    "example": "password"
                   },
                   "confirmPassword": {
-                    "example": "any"
+                    "example": "password"
                   },
                   "phone_number": {
-                    "example": "any"
+                    "example": "082315156647"
                   },
                   "first_name": {
-                    "example": "any"
+                    "example": "Joe"
                   },
                   "last_name": {
-                    "example": "any"
+                    "example": "Steven"
                   },
                   "address": {
-                    "example": "any"
+                    "example": "west java"
                   },
                   "gender": {
-                    "example": "any"
+                    "example": "MALE"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -588,13 +577,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
             "schema": {
               "type": "string"
             }
@@ -623,27 +605,47 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "record",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
+              "name": "q",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "example" : "irvan"
+              }
+            },
+        {
+          "name": "record",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : 10
           }
-        ],
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : 1
+          }
+        },
+        {
+          "name": "orderBy",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : "id"
+          }
+        },
+        {
+          "name": "orderDir",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "example" : "ASC"
+          }
+        }
+        
+      ],
         "responses": {
           "200": {
             "description": "OK"
@@ -681,16 +683,16 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "example": "any"
+                    "example": "irvan@gmail.com"
                   },
                   "newPassword": {
-                    "example": "any"
+                    "example": "newPassword"
                   },
                   "confirmNewPassword": {
-                    "example": "any"
+                    "example": "newPassword"
                   },
                   "otp_code": {
-                    "example": "any"
+                    "example": "221546"
                   }
                 }
               }
