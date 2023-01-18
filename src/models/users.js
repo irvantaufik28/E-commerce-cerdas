@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
         as: "user_Detail",
         foreignKey:"user_id"
       })
+
+      this.belongsTo(models.products, {
+        foreignKey: "user_id"
+      })
     }
   }
   users.init(
