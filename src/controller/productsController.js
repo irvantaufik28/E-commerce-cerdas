@@ -1,3 +1,4 @@
+const validation = require("../validation/index");
 module.exports = {
   getAllProducts: async (req, res) => {
     try {
@@ -26,6 +27,10 @@ module.exports = {
   },
   createProducts: async (req, res) => {
     try {
+        const { error } = validation.createProduct(req.body);
+        if (error) {
+          return res.status(400).json({ message: error.message });
+        }
       const request = {
         user_id: req.user.id,
         name_product: req.body.name_product,
@@ -41,6 +46,10 @@ module.exports = {
   },
 
   updateProducts: async (req, res) => {
+    const { error } = validation.createProduct(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.message });
+    }
     try {
       const { id } = req.params;
       const request = {

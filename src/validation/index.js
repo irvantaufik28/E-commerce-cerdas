@@ -107,4 +107,30 @@ module.exports = {
       })
       .validate(body);
   },
+  createProduct: (body) => {
+    return Joi.object()
+    .keys({
+      name_product: Joi.string().min(3).max(32).required().messages({
+        "string.empty": "name product cannot be an empty field",
+        "any.required": "name product is required field",
+        "string.first_name": `Please insert a valid first name'`,
+        "string.min": `name product should have a minimum length of {#limit}`,
+        "string.max": `name product should have a maximum length of {#limit}`,
+      }),
+      price: Joi.number().required().messages({
+        "string.empty": "price product cannot be an empty field",
+        "any.required": "price product is required field",
+        "number.price": `Please insert a valid first name'`,
+      }),
+      descripition: Joi.string().min(15).max(255).required().messages({
+        "string.empty": "descripition cannot be an empty field",
+        "any.required": "descripition is required field",
+        "string.descripition": `Please insert a valid first name'`,
+        "string.min": `descripition should have a minimum length of {#limit}`,
+        "string.max": `descripition should have a maximum length of {#limit}`,
+      }),
+      image: Joi.string().allow(null),
+    })
+    .validate(body);
+  }
 };
