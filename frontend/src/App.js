@@ -1,10 +1,15 @@
-import ProductList from "./components/ProductList";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import ProductList from "./components/Product/ProductList";
+import AddProduct from "./components/Product/AddProduct";
 
 function App() {
   return (
-    <div>
-     <ProductList/>
-    </div>
+  <Router>
+    <Routes>
+      <Route path="/" element={<ProductList/>} />
+      <Route path="add" element={<AddProduct/>} />
+    </Routes>
+  </Router>
   );
 }
 
