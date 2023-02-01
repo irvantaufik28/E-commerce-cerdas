@@ -1,31 +1,59 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 const ProductList = () => {
-    const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(1);
+  const [pages, setPages] = useState(0);
+  const [rows, setRows] = useState(0);
+  // const [orderBy, setOrderBy] = useState("")
+  // const [orderDir, setOrderDir] = useState("")
+  const [keyword, setKeyword] = useState("");
 
-    useEffect(()=>{
-        getProducts()
-    },[])
+  useEffect(() => {
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, keyword]);
 
-    const getProducts = async () => {
-        const response = await axios.get('http://localhost:3000/api/v1/product')
-      
-        setProducts(response.data.products.data)
+  const getProducts = async () => {
+    const response = await axios.get(
+      `http://localhost:3000/api/v1/product?q=${keyword}&record=${limit}&page=${page}`
+    );
+    console.log(response);
+    setProducts(response.data.products.data);
+    setPage(response.data.products.pagination.page);
+    setLimit(response.data.products.pagination.limit);
+    setPages(response.data.products.pagination.totalPage);
+    setRows(response.data.products.pagination.totalRow);
+  };
+
+  const changePage = ({ selected }) => {
+    setPage(selected);
+  };
+
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/v1/product/${id}`);
+      getProducts();
+    } catch (error) {
+      console.log(error);
     }
-
-    const deleteProduct = async (id) => {
-      try {
-        await axios.delete(`http://localhost:3000/api/v1/product/${id}`)
-        getProducts()
-      } catch (error) {
-        console.log(error)
-      }
-    }
+  };
   return (
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
-        <Link to={`add`} className="button is-success">Add new</Link>
+        <form>
+          <div className="field has-addons">
+            <div className="control is-expanded">
+              <input type="text" className="input" placeholder="search..." />
+            </div>
+          </div>
+        </form>
+        <Link to={`add`} className="button is-success mt-5">
+          Add new
+        </Link>
         <table className="table is-striped is-fullwidth">
           <thead>
             <tr>
@@ -38,22 +66,60 @@ const ProductList = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index)=>(
-
-            <tr key={product.id}>
-              <td>{index + 1}</td>
-              <td>{product.name_product}</td>
-              <td>{product.price}</td>
-              <td>{product.descripition}</td>
-              <td>  <img src={product.image} width={250} height={250} alt="icons" /></td>
-              <td>
-                <Link to={`edit/${product.id}`}  className="button is-small is-info">edit</Link> 
-                <button onClick={()=> deleteProduct(product.id) } className="button is-small is-danger">delete</button>
-              </td>
-            </tr>
+            {products.map((product, index) => (
+              <tr key={product.id}>
+                <td>{index + 1}</td>
+                <td>{product.name_product}</td>
+                <td>{product.price}</td>
+                <td>{product.descripition}</td>
+                <td>
+                  {" "}
+                  <img
+                    src={product.image}
+                    width={250}
+                    height={250}
+                    alt="icons"
+                  />
+                </td>
+                <td>
+                  <Link
+                    to={`edit/${product.id}`}
+                    className="button is-small is-info"
+                  >
+                    edit
+                  </Link>
+                  <button
+                    onClick={() => deleteProduct(product.id)}
+                    className="button is-small is-danger"
+                  >
+                    delete
+                  </button>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
+        <p>
+          Total Rows: {rows} page: {rows ? page + 1 : 0} of {pages}
+        </p>
+        <nav
+          className="pagination is-centered"
+          role="navigation"
+          arial-label="pagination"
+        >
+          <ReactPaginate
+            previousLabel={"< Prev"}
+            nextLabel={"next >"}
+            pageCount={pages}
+            onPageChange={changePage}
+            containerClassName={"pagination-list"}
+            pageLinkClassName={"pagination-link"}
+            previousLinkClassName={"pagination-previous"}
+            nextLinkClassName={"pagination-next"}
+            activeLinkClassName={"pagination-link is-current"}
+            disabledLinkClassName={"pagination-link is-disable"}
+          />
+        </nav>
       </div>
     </div>
   );
