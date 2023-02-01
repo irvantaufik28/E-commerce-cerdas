@@ -50,7 +50,7 @@ const ProductList = () => {
   };
   return (
     <div className="columns mt-5 is-centered">
-      <div className="column is-half">
+      <div className="column is-fullWidth">
         <form onSubmit={searchProduct}>
           <div className="field has-addons">
             <div className="control is-expanded">
