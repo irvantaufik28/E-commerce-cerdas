@@ -1,9 +1,12 @@
 import React from 'react'
-
+import Layout from './layout'
+import Welcome from '../components/Bar/Welcome'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <Layout>
+        <Welcome/>
+    </Layout>
   )
 }
 
