@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(5);
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
   // const [orderBy, setOrderBy] = useState("")
   // const [orderDir, setOrderDir] = useState("")
   const [keyword, setKeyword] = useState("");
+  const [query, setQuery] = useState("")
 
   useEffect(() => {
     getProducts();
@@ -33,6 +34,12 @@ const ProductList = () => {
     setPage(selected);
   };
 
+  const searchProduct = (e) => {
+    e.preventDefault();
+    setPage(0);
+    setKeyword(query)
+  }
+
   const deleteProduct = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/api/v1/product/${id}`);
@@ -44,10 +51,17 @@ const ProductList = () => {
   return (
     <div className="columns mt-5 is-centered">
       <div className="column is-half">
-        <form>
+        <form onSubmit={searchProduct}>
           <div className="field has-addons">
             <div className="control is-expanded">
-              <input type="text" className="input" placeholder="search..." />
+              <input type="text" 
+              className="input"
+              value={query} 
+              onChange={(e)=> setQuery(e.target.value)}
+              placeholder="search..." />
+            </div>
+            <div className="control">
+              <button type="submit" className="button is-info"> search</button>
             </div>
           </div>
         </form>
@@ -104,13 +118,14 @@ const ProductList = () => {
         </p>
         <nav
           className="pagination is-centered"
+          key={rows}
           role="navigation"
           arial-label="pagination"
         >
           <ReactPaginate
             previousLabel={"< Prev"}
             nextLabel={"next >"}
-            pageCount={pages}
+            pageCount={Math.min(10, pages)}
             onPageChange={changePage}
             containerClassName={"pagination-list"}
             pageLinkClassName={"pagination-link"}
